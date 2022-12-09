@@ -4,6 +4,7 @@ import Users from "./user/pages/Users";
 import NotFound from './NotFound'
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import UserPlaces from './places/pages/UserPlaces'
+import NewPlace from "./places/pages/NewPlace";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
       <Routes>
         <Route path='/' exact element={<Users/>} />
         <Route path='/:userId/places' exact element={<UserPlaces/>} />
+        <Route path='/places/new' exact element={<NewPlace/>} />
         {/* <Route path="/*" element={<NotFound/>}/> */}
       </Routes>
       </main>
