@@ -2,7 +2,7 @@ import React from 'react';
 
 import './NewPlace.css'
 
-const NewPlace = props => {
+const Input = props => {
     return (
         <form className='place-form'>
             

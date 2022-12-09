@@ -11,8 +11,8 @@ const DUMMY_PLACES = [
         imageURL: 'https://picsum.photos/200/300?grayscale',
         address: 'Address',
         location: {
-            latitude: 123,
-            longitude: 123
+            lat: 123,
+            lng: 123
         },
         creator:'u1'
     },
@@ -23,8 +23,8 @@ const DUMMY_PLACES = [
         imageURL: 'https://picsum.photos/seed/picsum/200/300',
         address: 'Address',
         location: {
-            latitude: 123,
-            longitude: 123
+            lat: 123,
+            lng: 123
         },
         creator:'u2'
     }
