@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import Button from '../../shared/components/FormElements/Button'
 import Input from '../../shared/components/FormElements/Input'
 import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from '../../shared/util/validators'
 import { useForm } from '../../shared/hooks/form-hook'
 import './PlaceForm.css'
+import Card from '../../shared/components/UIElements/Card'
 
 const DUMMY_PLACES = [
     {
@@ -37,16 +38,31 @@ const UpdatePlace = () => {
     const placeId = useParams().placeId;
     const identifiedPlace = DUMMY_PLACES.find(p => p.id === placeId);
 
-    const [formState, inputHandler] = useForm({
+    useEffect(() => {
+        if (identifiedPlace) {
+            setFormData({
+                title: {
+                    value: identifiedPlace.title,
+                    isValid: true
+                },
+                description: {
+                    value: identifiedPlace.description,
+                    isValid: true
+                }
+            }, true)
+        }
+    }, [setFormData, identifiedPlace])
+
+    const [formState, inputHandler, setFormData] = useForm({
         title: {
-            value: identifiedPlace.title,
-            isValid: true
+            value: '',
+            isValid: false
         },
         description: {
-            value: identifiedPlace.description,
-            isValid: true
+            value: '',
+            isValid: false
         }
-    }, true)
+    }, false)
 
     const placeUpdateSubmitHandler = event => {
         event.preventDefault();
@@ -55,12 +71,16 @@ const UpdatePlace = () => {
 
     if (!identifiedPlace) {
         return (
-            <h2>Place not found</h2>
+            <div className='center'>
+                <Card>
+                    <h2>Place not found</h2>
+                </Card>
+            </div>
         )
     }
 
     return (
-        <form className='place-form' onSubmit={placeUpdateSubmitHandler}>
+        formState.inputs.title.value && <form className='ce-form' onSubmit={placeUpdateSubmitHandler}>
             <Input id='title'
                 element='input'
                 type='text'
