@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Button from '../../shared/components/FormElements/Button';
 import Input from '../../shared/components/FormElements/Input';
 import Card from '../../shared/components/UIElements/Card';
 import { useForm } from '../../shared/hooks/form-hook';
 import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from '../../shared/util/validators';
-
+import { authContext } from '../../shared/context/auth-context';
 import './Auth.css'
 
 const Auth = () => {
+    const auth = useContext(authContext);
     const [isLoginMode, setIsLoginMode] = useState(false);
     const [formState, inputHandler, setFormData] = useForm({
         email: {
@@ -23,9 +24,8 @@ const Auth = () => {
     const switchModeHandler = () => {
         if (!isLoginMode) {
             setFormData({
-                ...formState.inputs, 
-                name: undefined,
-                isValid: true
+                ...formState.inputs,
+                name: undefined
             }, formState.inputs.email.isValid && formState.inputs.password.isValid);
         } else {
             setFormData({
@@ -42,6 +42,7 @@ const Auth = () => {
     const authSubmitHandler = event => {
         event.preventDefault();
         console.log('Authenticated');
+        auth.login();
     }
     return (
         <Card className='authentication'>
